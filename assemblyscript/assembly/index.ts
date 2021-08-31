@@ -2,7 +2,7 @@ import Apple from './apple';
 import * as nds from './nds';
 import { Snake, SnakeDirection } from './snake';
 
-const SCREEN_TOP = 0;
+const SCREEN_TOP: u8 = 0;
 
 export function start(): void {
 
