@@ -13,7 +13,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "assemblyscript": "^0.19.11"
+    "assemblyscript": "^0.19.11",
+    "prettier": "^2.3.2"
   },
   "dependencies": {
     "@assemblyscript/loader": "^0.19.11"
