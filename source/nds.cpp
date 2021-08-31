@@ -9,7 +9,7 @@ m3ApiRawFunction(m3_swiWaitForVBlank) {
 
 m3ApiRawFunction(_print)
 {
-    m3ApiGetArgMem (const uint8_t *, buf)
+    m3ApiGetArgMem (const char *, buf)
     iprintf((char *)buf);
     m3ApiSuccess();
 }
@@ -22,8 +22,8 @@ m3ApiRawFunction(m3_NF_Set2D) {
 }
 
 m3ApiRawFunction(m3_NF_SetRootFolder) {
-    m3ApiGetArgMem (const uint8_t *, root)
-    NF_SetRootFolder((char*) root);
+    m3ApiGetArgMem (const char *, root)
+    NF_SetRootFolder( root);
     m3ApiSuccess();
 }
 
@@ -39,19 +39,19 @@ m3ApiRawFunction(m3_NF_InitTiledBgSys) {
 }
 
 m3ApiRawFunction(m3_NF_LoadTiledBg) {
-    m3ApiGetArgMem (const uint8_t *, path)
-    m3ApiGetArgMem (const uint8_t *, name)
+    m3ApiGetArgMem (const char *, path)
+    m3ApiGetArgMem (const char *, name)
     m3ApiGetArg (uint32_t, width)
     m3ApiGetArg (uint32_t, height)
-    NF_LoadTiledBg((char*)path, (char*)name, width, height);
+    NF_LoadTiledBg(path, name, width, height);
     m3ApiSuccess();
 }
 
 m3ApiRawFunction(m3_NF_CreateTiledBg) {
     m3ApiGetArg (uint32_t, a)
     m3ApiGetArg (uint32_t, b)
-    m3ApiGetArgMem (const uint8_t *, c)
-    NF_CreateTiledBg(a,b,(char*)c);
+    m3ApiGetArgMem (const char *, c)
+    NF_CreateTiledBg(a,b,c);
     m3ApiSuccess();
 }
 
@@ -73,12 +73,12 @@ m3ApiRawFunction(m3_NF_InitTextSys) {
 }
 
 m3ApiRawFunction(m3_NF_LoadTextFont) {
-    m3ApiGetArgMem (const uint8_t *, file)
-    m3ApiGetArgMem (const uint8_t *, name)
+    m3ApiGetArgMem (const char *, file)
+    m3ApiGetArgMem (const char *, name)
     m3ApiGetArg (uint32_t, width)
     m3ApiGetArg (uint32_t, height)
     m3ApiGetArg (uint32_t, rotation)
-    NF_LoadTextFont((char*)file, (char*)name, width, height, rotation);
+    NF_LoadTextFont(file, name, width, height, rotation);
     m3ApiSuccess();
 }
 
@@ -86,8 +86,8 @@ m3ApiRawFunction(m3_NF_CreateTextLayer) {
     m3ApiGetArg (uint8_t, screen)
     m3ApiGetArg (uint8_t, layer)
     m3ApiGetArg (uint8_t, rotation)
-    m3ApiGetArgMem (const uint8_t *, name)
-    NF_CreateTextLayer(screen, layer, rotation, (char*)name);
+    m3ApiGetArgMem (const char *, name)
+    NF_CreateTextLayer(screen, layer, rotation, name);
     m3ApiSuccess();
 }
 
@@ -96,8 +96,8 @@ m3ApiRawFunction(m3_NF_WriteText) {
     m3ApiGetArg (uint8_t, layer)
     m3ApiGetArg (uint8_t, x)
     m3ApiGetArg (uint8_t, y)
-    m3ApiGetArgMem (const uint8_t *, text)
-    NF_WriteText(screen, layer, x, y, (char*)text);
+    m3ApiGetArgMem (const char *, text)
+    NF_WriteText(screen, layer, x, y, text);
     m3ApiSuccess();
 }
 
@@ -117,18 +117,18 @@ m3ApiRawFunction(m3_consoleClear) {
 };
 
 m3ApiRawFunction(m3_NF_LoadSpriteGfx) {
-    m3ApiGetArgMem (const uint8_t *, a)
+    m3ApiGetArgMem (const char *, a)
     m3ApiGetArg (uint8_t, b)
     m3ApiGetArg (uint8_t, c)
     m3ApiGetArg (uint8_t, d)
-    NF_LoadSpriteGfx((char*)a, b, c, d); 
+    NF_LoadSpriteGfx(a, b, c, d); 
     m3ApiSuccess();
 };
 
 m3ApiRawFunction(m3_NF_LoadSpritePal) {
-    m3ApiGetArgMem (const uint8_t *, a)
+    m3ApiGetArgMem (const char *, a)
     m3ApiGetArg (uint8_t, b)
-    NF_LoadSpritePal((char*)a, b); 
+    NF_LoadSpritePal(a, b); 
     m3ApiSuccess();
 };
 
