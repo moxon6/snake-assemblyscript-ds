@@ -79,6 +79,10 @@ export function start(): void {
         nextDirection = SnakeDirection.DOWN;
       }
 
+      if (nds.keysHeld() & nds.KEYS.SELECT) {
+        break;
+      }
+
       if (frame === 5) {
         snake.direction = nextDirection;
         frame = 0;

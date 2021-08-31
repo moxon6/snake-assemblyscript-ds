@@ -108,6 +108,7 @@ export declare function keysHeld(): u32;
 export declare function scanKeys(): void;
 
 export enum KEYS {
+  SELECT = 1 << 2,
   START = 1 << 3,
   RIGHT = 1 << 4,
   LEFT = 1 << 5,
