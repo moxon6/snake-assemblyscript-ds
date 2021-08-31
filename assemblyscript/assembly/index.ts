@@ -44,42 +44,44 @@ export function start(): void {
 
   let done: bool = false;
 
+  let nextDirection: SnakeDirection = SnakeDirection.RIGHT;
+
   while (1) {
     if (!done) {
       frame += 1;
       nds.scanKeys();
 
+      nds.NF_CreateSprite(SCREEN_TOP, 0, 0, 1, apple.x, apple.y);
+      for (let i: i32 = 0; i < snake.segments.length; i++) {
+        const seg = snake.segments[i];
+        nds.NF_CreateSprite(SCREEN_TOP, (i as u8) + 1, 0, 2, seg.x, seg.y);
+      }
+
       if (
         nds.keysHeld() & nds.KEYS.LEFT &&
         snake.direction !== SnakeDirection.RIGHT
       ) {
-        snake.direction = SnakeDirection.LEFT;
-      }
-      if (
+        nextDirection = SnakeDirection.LEFT;
+      } else if (
         nds.keysHeld() & nds.KEYS.RIGHT &&
         snake.direction !== SnakeDirection.LEFT
       ) {
-        snake.direction = SnakeDirection.RIGHT;
-      }
-      if (
+        nextDirection = SnakeDirection.RIGHT;
+      } else if (
         nds.keysHeld() & nds.KEYS.UP &&
         snake.direction !== SnakeDirection.DOWN
       ) {
-        snake.direction = SnakeDirection.UP;
-      }
-      if (
+        nextDirection = SnakeDirection.UP;
+      } else if (
         nds.keysHeld() & nds.KEYS.DOWN &&
         snake.direction !== SnakeDirection.UP
       ) {
-        snake.direction = SnakeDirection.DOWN;
+        nextDirection = SnakeDirection.DOWN;
       }
 
       if (frame === 5) {
+        snake.direction = nextDirection;
         frame = 0;
-        for (let i: i32 = 0; i < snake.segments.length; i++) {
-          const seg = snake.segments[i];
-          nds.NF_CreateSprite(SCREEN_TOP, (i as u8) + 1, 0, 2, seg.x, seg.y);
-        }
         snake.advanceHead();
         const head = snake.segments[0];
         if (head.x === apple.x && head.y === apple.y) {
@@ -98,7 +100,6 @@ export function start(): void {
         nds.NF_ClearTextLayer(SCREEN_TOP, 0);
         nds.NF_WriteText(0, 0, 2, 2, `SCORE: ${score}`);
         nds.NF_UpdateTextLayers();
-        nds.NF_CreateSprite(SCREEN_TOP, 0, 0, 1, apple.x, apple.y);
       }
       nds.NF_SpriteOamSet(SCREEN_TOP);
       nds.swiWaitForVBlank();
