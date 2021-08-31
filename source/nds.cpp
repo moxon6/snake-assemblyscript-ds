@@ -76,13 +76,13 @@ m3ApiRawFunction(m3_NF_InitTextSys) {
 }
 
 m3ApiRawFunction(m3_NF_LoadTextFont) {
-    m3ApiGetArg (uint32_t, width)
-    m3ApiGetArg (uint32_t, height)
-    m3ApiGetArg (uint32_t, rotation)
     m3ApiGetArgMem (const uint8_t *, file)
     m3ApiGetArg (const byte *, len_file)
     m3ApiGetArgMem (const uint8_t *, name)
     m3ApiGetArg (const byte *, len_name)
+    m3ApiGetArg (uint32_t, width)
+    m3ApiGetArg (uint32_t, height)
+    m3ApiGetArg (uint32_t, rotation)
     NF_LoadTextFont((char*)file, (char*)name, width, height, rotation);
     m3ApiSuccess();
 }

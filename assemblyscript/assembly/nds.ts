@@ -39,9 +39,9 @@ export declare function NF_InitSpriteBuffers(): void;
 export declare function NF_InitSpriteSys(screen: u8): void;
 export declare function NF_InitTextSys(screen: u8): void;
 
-declare function _NF_LoadTextFont(c: u32, d: u32, e: u32, a: usize, x: u32, b: usize, y: u32): void;
-export function NF_LoadTextFont(a: string, b: string, c: u32, d: u32, e: u32): void {
-  _NF_LoadTextFont(c, d, e, encode(a), 0, encode(b), 0);
+declare function _NF_LoadTextFont(file: usize, size_file: u32, name: usize, size_name: u32, width: u32, height: u32, rotation: u32): void;
+export function NF_LoadTextFont(file: string, name: string, width: u32, height: u32, rotation: u32): void {
+  _NF_LoadTextFont(encode(file), 0, encode(name), 0, width, height, rotation);
 }
 
 declare function _NF_CreateTextLayer(a: u8, b: u8, c: u8, d: usize, x: u32): void;
