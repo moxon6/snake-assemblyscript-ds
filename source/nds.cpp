@@ -15,9 +15,9 @@ m3ApiRawFunction(_print)
 }
 
 m3ApiRawFunction(m3_NF_Set2D) {
-    m3ApiGetArg (uint32_t, a)
-    m3ApiGetArg (uint32_t, b)
-    NF_Set2D(a,b);
+    m3ApiGetArg (uint8_t, screen)
+    m3ApiGetArg (uint8_t, model)
+    NF_Set2D(screen, model);
     m3ApiSuccess();
 }
 
@@ -34,8 +34,8 @@ m3ApiRawFunction(m3_NF_InitTiledBgBuffers) {
 }
 
 m3ApiRawFunction(m3_NF_InitTiledBgSys) {
-    m3ApiGetArg (uint32_t, val)
-    NF_InitTiledBgSys(val);
+    m3ApiGetArg (uint8_t, screen)
+    NF_InitTiledBgSys(screen);
     m3ApiSuccess();
 }
 
@@ -64,14 +64,14 @@ m3ApiRawFunction(m3_NF_InitSpriteBuffers) {
 }
 
 m3ApiRawFunction(m3_NF_InitSpriteSys) {
-    m3ApiGetArg (uint32_t, a)
-    NF_InitSpriteSys(a);
+    m3ApiGetArg (uint8_t, screen)
+    NF_InitSpriteSys(screen);
     m3ApiSuccess();
 }
 
 m3ApiRawFunction(m3_NF_InitTextSys) {
-    m3ApiGetArg (uint32_t, a)
-    NF_InitTextSys(a);
+    m3ApiGetArg (uint8_t, screen)
+    NF_InitTextSys(screen);
     m3ApiSuccess();
 }
 
@@ -140,36 +140,37 @@ m3ApiRawFunction(m3_NF_LoadSpritePal) {
 };
 
 m3ApiRawFunction(m3_NF_VramSpriteGfx) {
-    m3ApiGetArg (uint8_t, a)
-    m3ApiGetArg (uint8_t, b)
-    m3ApiGetArg (uint8_t, c)
-    m3ApiGetArg (bool, d)
-    NF_VramSpriteGfx(a, b, c, d); 
+    m3ApiGetArg (uint8_t, screen)
+    m3ApiGetArg (uint16_t, ram)
+    m3ApiGetArg (uint16_t, vram)
+    m3ApiGetArg (bool, keepframes)
+    NF_VramSpriteGfx(screen, ram, vram, keepframes); 
     m3ApiSuccess();
 };
 
 m3ApiRawFunction(m3_NF_VramSpritePal) {
-    m3ApiGetArg (uint8_t, a)
-    m3ApiGetArg (uint8_t, b)
-    m3ApiGetArg (uint8_t, c)
-    NF_VramSpritePal(a, b, c); 
+    m3ApiGetArg (uint8_t, screen)
+    m3ApiGetArg (uint8_t, id)
+    m3ApiGetArg (uint8_t, slot)
+    NF_VramSpritePal(screen, id, slot); 
     m3ApiSuccess();
 };
 
+
 m3ApiRawFunction(m3_NF_CreateSprite) {
-    m3ApiGetArg (uint8_t, a)
-    m3ApiGetArg (uint8_t, b)
-    m3ApiGetArg (uint8_t, c)
-    m3ApiGetArg (uint8_t, d)
+    m3ApiGetArg (uint8_t, screen)
+    m3ApiGetArg (uint8_t, id)
+    m3ApiGetArg (uint8_t, gfx)
+    m3ApiGetArg (uint8_t, pal)
     m3ApiGetArg (uint8_t, x)
     m3ApiGetArg (uint8_t, y)
-    NF_CreateSprite(a, b, c, d, x, y); 
+    NF_CreateSprite(screen, id, gfx, pal, x, y); 
     m3ApiSuccess();
 };
 
 m3ApiRawFunction(m3_NF_SpriteOamSet) {
-    m3ApiGetArg (uint8_t, a)
-    NF_SpriteOamSet(a); 
+    m3ApiGetArg (uint8_t, screen)
+    NF_SpriteOamSet(screen); 
     m3ApiSuccess();
 };
 
@@ -179,16 +180,16 @@ m3ApiRawFunction(m3_oamUpdate) {
 }
 
 m3ApiRawFunction(m3_NF_ClearTextLayer) {
-    m3ApiGetArg (uint8_t, a)
-    m3ApiGetArg (uint8_t, b)
-    NF_ClearTextLayer(a, b); 
+    m3ApiGetArg (uint8_t, screen)
+    m3ApiGetArg (uint8_t, layer)
+    NF_ClearTextLayer(screen, layer); 
     m3ApiSuccess();
 };
 
 m3ApiRawFunction(m3_NF_DeleteSprite) {
-    m3ApiGetArg (uint8_t, a)
-    m3ApiGetArg (uint8_t, b)
-    NF_DeleteSprite(a, b); 
+    m3ApiGetArg (uint8_t, screen)
+    m3ApiGetArg (uint8_t, layer)
+    NF_DeleteSprite(screen, layer); 
     m3ApiSuccess();
 };
 
