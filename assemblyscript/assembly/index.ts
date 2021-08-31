@@ -37,6 +37,8 @@ export function start(): void {
     nds.NF_LoadTextFont("fonts/font", "default", 256, 256, 0);
     nds.NF_CreateTextLayer(0, 0, 0, "default");
 
+    
+
     let snake = new Snake();
     let apple = new Apple();
 

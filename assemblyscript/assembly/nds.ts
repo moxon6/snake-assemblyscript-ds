@@ -1,37 +1,36 @@
 export declare function swiWaitForVBlank(): void;
 
-declare function _print(ptr: usize, x: u32): void;
+declare function _print(ptr: ArrayBuffer): void;
 
 export function print(str: string): void {
-  const buffer = String.UTF8.encode(str);
-  _print(changetype<usize>(buffer), 0);
+  const buffer = String.UTF8.encode(str + "\0");
+  _print(changetype<ArrayBuffer>(buffer));
 }
 
 export function println(str: string): void {
-  print(str);
-  print('\n');
+  print(str + "\n");
 }
 
-const encode = (str: string): usize => changetype<usize>(String.UTF8.encode(str + "\0"));
+const encode = (str: string): ArrayBuffer => changetype<ArrayBuffer>(String.UTF8.encode(str + "\0"));
 
 export declare function NF_Set2D(screen: u8, model: u8): void;
 
-export declare function _NF_SetRootFolder(a: usize, x: u32): void;
+export declare function _NF_SetRootFolder(a: ArrayBuffer): void;
 export function NF_SetRootFolder(root: string): void {
-  _NF_SetRootFolder(encode(root), 0);
+  _NF_SetRootFolder(encode(root));
 }
 
 export declare function NF_InitTiledBgBuffers(): void;
 export declare function NF_InitTiledBgSys(screen: u8): void;
 
-declare function _NF_LoadTiledBg(a: usize, x: u32, b: usize, y: u32, c: u32, d: u32): void;
+declare function _NF_LoadTiledBg(a: ArrayBuffer, b: ArrayBuffer, c: u32, d: u32): void;
 export function NF_LoadTiledBg(a: string, b: string, c: u32, d: u32): void {
-  _NF_LoadTiledBg(encode(a), 0, encode(b), 0, c, d);
+  _NF_LoadTiledBg(encode(a), encode(b), c, d);
 }
 
-export declare function _NF_CreateTiledBg(a: u32, b: u32, c: usize, x: u32): void;
+export declare function _NF_CreateTiledBg(a: u32, b: u32, c: ArrayBuffer, ): void;
 export function NF_CreateTiledBg(a: u32, b: u32, c: string): void {
-  _NF_CreateTiledBg(a, b, encode(c), 0);
+  _NF_CreateTiledBg(a, b, encode(c));
 }
 
 
@@ -39,19 +38,19 @@ export declare function NF_InitSpriteBuffers(): void;
 export declare function NF_InitSpriteSys(screen: u8): void;
 export declare function NF_InitTextSys(screen: u8): void;
 
-declare function _NF_LoadTextFont(file: usize, size_file: u32, name: usize, size_name: u32, width: u32, height: u32, rotation: u32): void;
+declare function _NF_LoadTextFont(file: ArrayBuffer, name: ArrayBuffer, width: u32, height: u32, rotation: u32): void;
 export function NF_LoadTextFont(file: string, name: string, width: u32, height: u32, rotation: u32): void {
-  _NF_LoadTextFont(encode(file), 0, encode(name), 0, width, height, rotation);
+  _NF_LoadTextFont(encode(file), encode(name), width, height, rotation);
 }
 
-declare function _NF_CreateTextLayer(a: u8, b: u8, c: u8, d: usize, x: u32): void;
+declare function _NF_CreateTextLayer(a: u8, b: u8, c: u8, d: ArrayBuffer): void;
 export function NF_CreateTextLayer(a: u8, b: u8, c: u8, d: string): void {
-  _NF_CreateTextLayer(a, b, c, encode(d), 0);
+  _NF_CreateTextLayer(a, b, c, encode(d));
 }
 
-declare function _NF_WriteText(a: u8, b: u8, c: u8, d: u8, e: usize, x: u32): void;
+declare function _NF_WriteText(a: u8, b: u8, c: u8, d: u8, e: ArrayBuffer): void;
 export function NF_WriteText(a: u8, b: u8, c: u8, d: u8, e: string): void {
-  _NF_WriteText(a, b, c, d, encode(e), 0);
+  _NF_WriteText(a, b, c, d, encode(e));
 }
 
 export declare function NF_UpdateTextLayers(): void;
@@ -59,14 +58,14 @@ export declare function NF_UpdateTextLayers(): void;
 export declare function consoleDemoInit(): void;
 export declare function consoleClear(): void;
 
-declare function _NF_LoadSpriteGfx(a: usize, x: u32, b: u8, c: u8, d: u8): void;
+declare function _NF_LoadSpriteGfx(a: ArrayBuffer, b: u8, c: u8, d: u8): void;
 export function NF_LoadSpriteGfx(a: string, b: u8, c: u8, d: u8): void {
-  _NF_LoadSpriteGfx(encode(a), 0, b, c, d);
+  _NF_LoadSpriteGfx(encode(a), b, c, d);
 }
 
-declare function _NF_LoadSpritePal(a: usize, x: u32, b: u8): void;
+declare function _NF_LoadSpritePal(a: ArrayBuffer, b: u8): void;
 export function NF_LoadSpritePal(a: string, b: u8): void {
-  _NF_LoadSpritePal(encode(a), 0, b);
+  _NF_LoadSpritePal(encode(a), b);
 }
 
 export declare function NF_VramSpriteGfx(screen: u8, vram: u16, ram: u16, keepframes: boolean): void;
