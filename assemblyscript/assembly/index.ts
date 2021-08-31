@@ -92,7 +92,7 @@ export function start(): void {
           const seg = snake.segments[i];
           if (head.x === seg.x && head.y === seg.y) {
             done = true;
-            nds.println("Game Over. \nPress start to continue.");
+            nds.print("Game Over. \nPress start to continue.\n");
           }
         }
         nds.NF_ClearTextLayer(SCREEN_TOP, 0);

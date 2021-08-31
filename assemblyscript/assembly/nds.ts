@@ -1,18 +1,11 @@
 export declare function swiWaitForVBlank(): void;
 
+const encode = (str: string): ArrayBuffer => String.UTF8.encode(str + "\0");
+
 declare function _print(ptr: ArrayBuffer): void;
-
 export function print(str: string): void {
-  const buffer = String.UTF8.encode(str + "\0");
-  _print(changetype<ArrayBuffer>(buffer));
+  _print(encode(str));
 }
-
-export function println(str: string): void {
-  print(str + "\n");
-}
-
-const encode = (str: string): ArrayBuffer =>
-  changetype<ArrayBuffer>(String.UTF8.encode(str + "\0"));
 
 export declare function NF_Set2D(screen: u8, model: u8): void;
 
