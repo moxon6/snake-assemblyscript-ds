@@ -1,0 +1,21 @@
+{
+  "name": "helloworld-assemblyscript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node tests",
+    "build": "npm run asbuild:optimized && xxd -i build/optimized.wasm > ../source/app.wasm.h",
+    "asbuild:untouched": "asc assembly/index.ts --target debug",
+    "asbuild:optimized": "asc assembly/index.ts -O3z --runtime stub --noAssert --use abort=",
+    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "assemblyscript": "^0.19.11"
+  },
+  "dependencies": {
+    "@assemblyscript/loader": "^0.19.11"
+  }
+}
