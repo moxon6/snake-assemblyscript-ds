@@ -14,7 +14,7 @@ export function start(): void {
   nds.NF_InitTiledBgSys(SCREEN_TOP);
 
   nds.NF_LoadTiledBg("backgrounds/bg", "bg", 256, 256);
-  nds.NF_CreateTiledBg(0, 3, "bg");
+  nds.NF_CreateTiledBg(SCREEN_TOP, 3, "bg");
 
   nds.NF_InitSpriteBuffers();
   nds.NF_InitSpriteSys(SCREEN_TOP);
@@ -34,7 +34,7 @@ export function start(): void {
   nds.NF_InitTextSys(SCREEN_TOP);
 
   nds.NF_LoadTextFont("fonts/font", "default", 256, 256, 0);
-  nds.NF_CreateTextLayer(0, 0, 0, "default");
+  nds.NF_CreateTextLayer(SCREEN_TOP, 0, 0, "default");
 
   let snake = new Snake();
   let apple = new Apple();
@@ -102,7 +102,7 @@ export function start(): void {
           }
         }
         nds.NF_ClearTextLayer(SCREEN_TOP, 0);
-        nds.NF_WriteText(0, 0, 2, 2, `SCORE: ${score}`);
+        nds.NF_WriteText(SCREEN_TOP, 0, 2, 2, `SCORE: ${score}`);
         nds.NF_UpdateTextLayers();
       }
       nds.NF_SpriteOamSet(SCREEN_TOP);
