@@ -16,8 +16,8 @@ m3ApiRawFunction(_print)
 
 m3ApiRawFunction(m3_NF_Set2D) {
     m3ApiGetArg (uint8_t, screen)
-    m3ApiGetArg (uint8_t, model)
-    NF_Set2D(screen, model);
+    m3ApiGetArg (uint8_t, mode)
+    NF_Set2D(screen, mode);
     m3ApiSuccess();
 }
 

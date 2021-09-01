@@ -7,7 +7,7 @@ export function print(str: string): void {
   _print(encode(str));
 }
 
-export declare function NF_Set2D(screen: u8, model: u8): void;
+export declare function NF_Set2D(screen: u8, mode: u8): void;
 
 export declare function _NF_SetRootFolder(a: ArrayBuffer): void;
 export function NF_SetRootFolder(root: string): void {
