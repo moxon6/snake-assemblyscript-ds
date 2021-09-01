@@ -18,18 +18,27 @@ export declare function NF_InitTiledBgBuffers(): void;
 export declare function NF_InitTiledBgSys(screen: u8): void;
 
 declare function _NF_LoadTiledBg(
-  a: ArrayBuffer,
-  b: ArrayBuffer,
-  c: u32,
-  d: u32
+  file: ArrayBuffer,
+  name: ArrayBuffer,
+  width: u32,
+  height: u32
 ): void;
-export function NF_LoadTiledBg(a: string, b: string, c: u32, d: u32): void {
-  _NF_LoadTiledBg(encode(a), encode(b), c, d);
+export function NF_LoadTiledBg(
+  file: string,
+  name: string,
+  width: u32,
+  height: u32
+): void {
+  _NF_LoadTiledBg(encode(file), encode(name), width, height);
 }
 
-export declare function _NF_CreateTiledBg(a: u32, b: u32, c: ArrayBuffer): void;
-export function NF_CreateTiledBg(a: u32, b: u32, c: string): void {
-  _NF_CreateTiledBg(a, b, encode(c));
+export declare function _NF_CreateTiledBg(
+  screen: u32,
+  layer: u32,
+  name: ArrayBuffer
+): void;
+export function NF_CreateTiledBg(screen: u32, layer: u32, name: string): void {
+  _NF_CreateTiledBg(screen, layer, encode(name));
 }
 
 export declare function NF_InitSpriteBuffers(): void;
@@ -53,20 +62,36 @@ export function NF_LoadTextFont(
   _NF_LoadTextFont(encode(file), encode(name), width, height, rotation);
 }
 
-declare function _NF_CreateTextLayer(a: u8, b: u8, c: u8, d: ArrayBuffer): void;
-export function NF_CreateTextLayer(a: u8, b: u8, c: u8, d: string): void {
-  _NF_CreateTextLayer(a, b, c, encode(d));
+declare function _NF_CreateTextLayer(
+  screen: u8,
+  layer: u8,
+  rotation: u8,
+  name: ArrayBuffer
+): void;
+export function NF_CreateTextLayer(
+  screen: u8,
+  layer: u8,
+  rotation: u8,
+  name: string
+): void {
+  _NF_CreateTextLayer(screen, layer, rotation, encode(name));
 }
 
 declare function _NF_WriteText(
-  a: u8,
-  b: u8,
-  c: u8,
-  d: u8,
-  e: ArrayBuffer
+  screen: u8,
+  layer: u8,
+  x: u16,
+  y: u16,
+  text: ArrayBuffer
 ): void;
-export function NF_WriteText(a: u8, b: u8, c: u8, d: u8, e: string): void {
-  _NF_WriteText(a, b, c, d, encode(e));
+export function NF_WriteText(
+  screen: u8,
+  layer: u8,
+  x: u16,
+  y: u16,
+  text: string
+): void {
+  _NF_WriteText(screen, layer, x, y, encode(text));
 }
 
 export declare function NF_UpdateTextLayers(): void;
@@ -74,14 +99,24 @@ export declare function NF_UpdateTextLayers(): void;
 export declare function consoleDemoInit(): void;
 export declare function consoleClear(): void;
 
-declare function _NF_LoadSpriteGfx(a: ArrayBuffer, b: u8, c: u8, d: u8): void;
-export function NF_LoadSpriteGfx(a: string, b: u8, c: u8, d: u8): void {
-  _NF_LoadSpriteGfx(encode(a), b, c, d);
+declare function _NF_LoadSpriteGfx(
+  file: ArrayBuffer,
+  id: u16,
+  width: u16,
+  height: u16
+): void;
+export function NF_LoadSpriteGfx(
+  file: string,
+  id: u16,
+  width: u16,
+  height: u16
+): void {
+  _NF_LoadSpriteGfx(encode(file), id, width, height);
 }
 
-declare function _NF_LoadSpritePal(a: ArrayBuffer, b: u8): void;
-export function NF_LoadSpritePal(a: string, b: u8): void {
-  _NF_LoadSpritePal(encode(a), b);
+declare function _NF_LoadSpritePal(file: ArrayBuffer, id: u8): void;
+export function NF_LoadSpritePal(file: string, id: u8): void {
+  _NF_LoadSpritePal(encode(file), id);
 }
 
 export declare function NF_VramSpriteGfx(

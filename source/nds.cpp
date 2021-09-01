@@ -9,8 +9,8 @@ m3ApiRawFunction(m3_swiWaitForVBlank) {
 
 m3ApiRawFunction(_print)
 {
-    m3ApiGetArgMem (const char *, buf)
-    iprintf((char *)buf);
+    m3ApiGetArgMem (const char *, str)
+    iprintf(str);
     m3ApiSuccess();
 }
 
@@ -48,10 +48,10 @@ m3ApiRawFunction(m3_NF_LoadTiledBg) {
 }
 
 m3ApiRawFunction(m3_NF_CreateTiledBg) {
-    m3ApiGetArg (uint32_t, a)
-    m3ApiGetArg (uint32_t, b)
-    m3ApiGetArgMem (const char *, c)
-    NF_CreateTiledBg(a,b,c);
+    m3ApiGetArg (uint32_t, screen)
+    m3ApiGetArg (uint32_t, layer)
+    m3ApiGetArgMem (const char *, name)
+    NF_CreateTiledBg(screen, layer, name);
     m3ApiSuccess();
 }
 
@@ -94,8 +94,8 @@ m3ApiRawFunction(m3_NF_CreateTextLayer) {
 m3ApiRawFunction(m3_NF_WriteText) {
     m3ApiGetArg (uint8_t, screen)
     m3ApiGetArg (uint8_t, layer)
-    m3ApiGetArg (uint8_t, x)
-    m3ApiGetArg (uint8_t, y)
+    m3ApiGetArg (uint16_t, x)
+    m3ApiGetArg (uint16_t, y)
     m3ApiGetArgMem (const char *, text)
     NF_WriteText(screen, layer, x, y, text);
     m3ApiSuccess();
@@ -117,18 +117,18 @@ m3ApiRawFunction(m3_consoleClear) {
 };
 
 m3ApiRawFunction(m3_NF_LoadSpriteGfx) {
-    m3ApiGetArgMem (const char *, a)
-    m3ApiGetArg (uint8_t, b)
-    m3ApiGetArg (uint8_t, c)
-    m3ApiGetArg (uint8_t, d)
-    NF_LoadSpriteGfx(a, b, c, d); 
+    m3ApiGetArgMem (const char *, file)
+    m3ApiGetArg (uint16_t, id)
+    m3ApiGetArg (uint16_t, width)
+    m3ApiGetArg (uint16_t, height)
+    NF_LoadSpriteGfx(file, id, width, height); 
     m3ApiSuccess();
 };
 
 m3ApiRawFunction(m3_NF_LoadSpritePal) {
-    m3ApiGetArgMem (const char *, a)
-    m3ApiGetArg (uint8_t, b)
-    NF_LoadSpritePal(a, b); 
+    m3ApiGetArgMem (const char *, file)
+    m3ApiGetArg (uint8_t, id)
+    NF_LoadSpritePal(file, id); 
     m3ApiSuccess();
 };
 
