@@ -30,6 +30,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: snake_assemblyscript.nds
-          tag: 1.0
+          tag: snake-assemblyscript
           overwrite: true
           body: "snake_assemblyscript"
