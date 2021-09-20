@@ -22,7 +22,8 @@ jobs:
             wget -c https://github.com/moxon6/nds-dependencies/releases/download/0.1/wasm3-nds.tar.gz -O - | tar -xz -C /root/opt
             wget -c https://github.com/moxon6/nds-dependencies/releases/download/0.1/nflib-nds.tar.gz -O - | tar -xz -C /root/opt
             cd /workspace
-            ./compile.sh
+            ( cd assemblyscript ; npm ci ; npm run build )
+            ( make clean; make )
 
       - name: Upload snake_assemblyscript
         uses: svenstaro/upload-release-action@v2
