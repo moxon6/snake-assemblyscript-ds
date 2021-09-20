@@ -19,7 +19,7 @@ jobs:
             mkdir -p /root/opt/
             wget -c https://github.com/moxon6/nds-dependencies/releases/download/0.1/wasm3-nds.tar.gz -O - | tar -xz -C /root/opt
             wget -c https://github.com/moxon6/nds-dependencies/releases/download/0.1/nflib-nds.tar.gz -O - | tar -xz -C /root/opt
-            
+            find /workspace
             cd /workspace
             ./compile.sh
 
