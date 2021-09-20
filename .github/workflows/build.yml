@@ -1,0 +1,32 @@
+name: Build Snake AssemblyScript DS for use on nds
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: devkitpro/devkitarm:20210726
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            set -e
+            apt-get update
+            curl -fsSL https://deb.nodesource.com/setup_14.x | bash - 
+            apt-get install -y nodejs xxd
+
+            mkdir -p /root/opt/
+            wget -c https://github.com/moxon6/nds-dependencies/releases/download/0.1/wasm3-nds.tar.gz -O - | tar -xz -C /root/opt
+            wget -c https://github.com/moxon6/nds-dependencies/releases/download/0.1/nflib-nds.tar.gz -O - | tar -xz -C /root/opt
+            
+            ./compile.sh
+
+      - name: Upload snake_assemblyscript
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: snake_assemblyscript.nds
+          tag: 1.0
+          overwrite: true
+          body: "snake_assemblyscript"
