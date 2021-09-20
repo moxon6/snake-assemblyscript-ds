@@ -2,7 +2,6 @@ libwasm3
 nflib
 node_modules
 source/app.wasm.h
-nitrofiles
 build
 snake_assemblyscript.elf
 snake_assemblyscript.nds
