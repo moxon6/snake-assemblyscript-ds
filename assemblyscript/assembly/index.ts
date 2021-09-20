@@ -4,6 +4,43 @@ import { Snake, SnakeDirection } from "./snake";
 
 const SCREEN_TOP: u8 = 0;
 
+function drawScore(score: u32): void {
+  nds.NF_ClearTextLayer(SCREEN_TOP, 0);
+  nds.NF_WriteText(SCREEN_TOP, 0, 2, 2, `SCORE: ${score}`);
+  nds.NF_UpdateTextLayers();
+}
+
+function getDirectionFromKeys(direction: SnakeDirection): SnakeDirection {
+  if (nds.keysHeld() & nds.KEYS.LEFT && direction !== SnakeDirection.RIGHT) {
+    return SnakeDirection.LEFT;
+  } else if (
+    nds.keysHeld() & nds.KEYS.RIGHT &&
+    direction !== SnakeDirection.LEFT
+  ) {
+    return SnakeDirection.RIGHT;
+  } else if (
+    nds.keysHeld() & nds.KEYS.UP &&
+    direction !== SnakeDirection.DOWN
+  ) {
+    return SnakeDirection.UP;
+  } else if (
+    nds.keysHeld() & nds.KEYS.DOWN &&
+    direction !== SnakeDirection.UP
+  ) {
+    return SnakeDirection.DOWN;
+  } else {
+    return direction;
+  }
+}
+
+function updateDisplay(): void {
+  nds.NF_SpriteOamSet(SCREEN_TOP);
+  nds.swiWaitForVBlank();
+  nds.oamUpdate();
+}
+
+const shouldQuit = (): boolean => (nds.keysHeld() & nds.KEYS.SELECT) !== 0;
+
 export function start(): void {
   nds.consoleDemoInit();
   nds.consoleClear();
@@ -20,31 +57,28 @@ export function start(): void {
   nds.NF_InitSpriteSys(SCREEN_TOP);
 
   nds.NF_LoadSpriteGfx("sprites/tile", 0, 8, 8);
+
   nds.NF_LoadSpritePal("palettes/segment", 0);
   nds.NF_LoadSpritePal("palettes/apple", 1);
-  nds.NF_LoadSpritePal("palettes/segment_dropshadow", 2);
-  nds.NF_LoadSpritePal("palettes/apple_dropshadow", 3);
 
   nds.NF_VramSpriteGfx(SCREEN_TOP, 0, 0, true);
   nds.NF_VramSpritePal(SCREEN_TOP, 0, 0);
   nds.NF_VramSpritePal(SCREEN_TOP, 1, 1);
-  nds.NF_VramSpritePal(SCREEN_TOP, 2, 2);
-  nds.NF_VramSpritePal(SCREEN_TOP, 3, 3);
 
   nds.NF_InitTextSys(SCREEN_TOP);
 
   nds.NF_LoadTextFont("fonts/font", "default", 256, 256, 0);
   nds.NF_CreateTextLayer(SCREEN_TOP, 0, 0, "default");
 
-  let snake = new Snake();
-  let apple = new Apple();
+  let snake = new Snake(0);
+  let apple = new Apple(1);
 
   let frame: u8 = 0;
-  let score = 0;
+  let score: u32 = 0;
 
   let done: bool = false;
 
-  let nextDirection: SnakeDirection = SnakeDirection.RIGHT;
+  let direction: SnakeDirection = SnakeDirection.RIGHT;
 
   while (1) {
     if (!done) {
@@ -57,57 +91,31 @@ export function start(): void {
         nds.NF_CreateSprite(SCREEN_TOP, (i as u8) + 1, 0, 2, seg.x, seg.y);
       }
 
-      if (
-        nds.keysHeld() & nds.KEYS.LEFT &&
-        snake.direction !== SnakeDirection.RIGHT
-      ) {
-        nextDirection = SnakeDirection.LEFT;
-      } else if (
-        nds.keysHeld() & nds.KEYS.RIGHT &&
-        snake.direction !== SnakeDirection.LEFT
-      ) {
-        nextDirection = SnakeDirection.RIGHT;
-      } else if (
-        nds.keysHeld() & nds.KEYS.UP &&
-        snake.direction !== SnakeDirection.DOWN
-      ) {
-        nextDirection = SnakeDirection.UP;
-      } else if (
-        nds.keysHeld() & nds.KEYS.DOWN &&
-        snake.direction !== SnakeDirection.UP
-      ) {
-        nextDirection = SnakeDirection.DOWN;
-      }
+      direction = getDirectionFromKeys(direction);
 
-      if (nds.keysHeld() & nds.KEYS.SELECT) {
+      if (shouldQuit()) {
         break;
       }
 
       if (frame === 5) {
-        snake.direction = nextDirection;
         frame = 0;
-        snake.advanceHead();
-        const head = snake.segments[0];
-        if (head.x === apple.x && head.y === apple.y) {
+
+        if (!snake.advanceHead(direction)) {
+          done = true;
+          nds.print("Game Over. \nPress start to continue.\n");
+        }
+
+        if (snake.hasEatenApple(apple)) {
           apple.shuffle();
           score++;
         } else {
           snake.removeTail();
         }
-        for (let i: i32 = 1; i < snake.segments.length; i++) {
-          const seg = snake.segments[i];
-          if (head.x === seg.x && head.y === seg.y) {
-            done = true;
-            nds.print("Game Over. \nPress start to continue.\n");
-          }
-        }
-        nds.NF_ClearTextLayer(SCREEN_TOP, 0);
-        nds.NF_WriteText(SCREEN_TOP, 0, 2, 2, `SCORE: ${score}`);
-        nds.NF_UpdateTextLayers();
+
+        drawScore(score);
       }
-      nds.NF_SpriteOamSet(SCREEN_TOP);
-      nds.swiWaitForVBlank();
-      nds.oamUpdate();
+
+      updateDisplay();
     } else {
       nds.scanKeys();
       if (nds.keysHeld() & nds.KEYS.START) {
@@ -115,16 +123,15 @@ export function start(): void {
         for (let i: i32 = 0; i < snake.segments.length; i++) {
           nds.NF_DeleteSprite(SCREEN_TOP, (i + 1) as u8);
         }
-        snake = new Snake();
-        apple = new Apple();
+        snake = new Snake(0);
+        apple = new Apple(1);
         score = 0;
         frame = 0;
         done = false;
+        direction = SnakeDirection.RIGHT;
         nds.consoleClear();
       }
-      nds.NF_SpriteOamSet(SCREEN_TOP);
-      nds.swiWaitForVBlank();
-      nds.oamUpdate();
+      updateDisplay();
     }
   }
 }

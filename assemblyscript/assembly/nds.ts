@@ -1,6 +1,6 @@
 export declare function swiWaitForVBlank(): void;
 
-const encode = (str: string): ArrayBuffer => String.UTF8.encode(str + "\0");
+const encode = (str: string): ArrayBuffer => String.UTF8.encode(str, true);
 
 declare function _print(ptr: ArrayBuffer): void;
 export function print(str: string): void {
