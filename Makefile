@@ -96,7 +96,7 @@ LIBS	:= -lnflib -lfilesystem -lfat -lnds9 -lwasm3
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:=	$(LIBNDS) $(CURDIR)/libwasm3 $(CURDIR)/nflib
+LIBDIRS	:=	$(LIBNDS) /root/opt
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
