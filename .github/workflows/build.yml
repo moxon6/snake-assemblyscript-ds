@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
+
       - uses: addnab/docker-run-action@v3
         with:
           image: devkitpro/devkitarm:20210726
@@ -19,7 +21,6 @@ jobs:
             mkdir -p /root/opt/
             wget -c https://github.com/moxon6/nds-dependencies/releases/download/0.1/wasm3-nds.tar.gz -O - | tar -xz -C /root/opt
             wget -c https://github.com/moxon6/nds-dependencies/releases/download/0.1/nflib-nds.tar.gz -O - | tar -xz -C /root/opt
-            find /workspace
             cd /workspace
             ./compile.sh
 
