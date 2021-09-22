@@ -33,13 +33,18 @@ const nextSegment = (segment: Segment, direction: SnakeDirection): Segment => {
 
 export class Snake {
   segments: Segment[];
-  
+  direction: SnakeDirection;
+
   constructor() {
     this.segments = [new Segment(8, 0), new Segment(0, 0)];
+    this.direction = SnakeDirection.RIGHT;
   }
 
   advanceHead(direction: SnakeDirection): boolean {
-    this.segments.unshift(nextSegment(this.segments[0], direction));
+    if (direction !== this.direction * -1) {
+      this.direction = direction;
+    }
+    this.segments.unshift(nextSegment(this.segments[0], this.direction));
     return this.checkCollision();
   }
 
