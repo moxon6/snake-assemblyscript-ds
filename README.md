@@ -1,4 +1,4 @@
-# Snake-DS-AssemblyScript
+# Snake-AssemblyScript-DS
 
 This is an AssemblyScript partial rewrite of [Snake-DS by PolyMars](https://github.com/PolyMarsDev/Snake-DS) for the Nintendo DS.
 
