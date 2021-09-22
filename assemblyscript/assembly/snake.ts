@@ -33,10 +33,8 @@ const nextSegment = (segment: Segment, direction: SnakeDirection): Segment => {
 
 export class Snake {
   segments: Segment[];
-  id: u8;
-
-  constructor(id: u8) {
-    this.id = id;
+  
+  constructor() {
     this.segments = [new Segment(8, 0), new Segment(0, 0)];
   }
 

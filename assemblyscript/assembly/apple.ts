@@ -3,10 +3,8 @@ import * as nds from "./nds";
 export default class Apple {
   x: u8;
   y: u8;
-  id: u8;
-  constructor(id: u8) {
+  constructor() {
     this.shuffle();
-    this.id = id;
   }
 
   shuffle(): void {

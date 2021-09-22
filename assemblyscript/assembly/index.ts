@@ -58,6 +58,9 @@ export function start(): void {
 
   nds.NF_LoadSpriteGfx("sprites/tile", 0, 8, 8);
 
+  const SEGMENT_ID: u8 = 0;
+  const APPLE_ID: u8 = 1;
+
   nds.NF_LoadSpritePal("palettes/segment", 0);
   nds.NF_LoadSpritePal("palettes/apple", 1);
 
@@ -70,8 +73,8 @@ export function start(): void {
   nds.NF_LoadTextFont("fonts/font", "default", 256, 256, 0);
   nds.NF_CreateTextLayer(SCREEN_TOP, 0, 0, "default");
 
-  let snake = new Snake(0);
-  let apple = new Apple(1);
+  let snake = new Snake();
+  let apple = new Apple();
 
   let frame: u8 = 0;
   let score: u32 = 0;
@@ -85,10 +88,10 @@ export function start(): void {
       frame += 1;
       nds.scanKeys();
 
-      nds.NF_CreateSprite(SCREEN_TOP, 0, 0, 1, apple.x, apple.y);
+      nds.NF_CreateSprite(SCREEN_TOP, 0, 0, APPLE_ID, apple.x, apple.y);
       for (let i: i32 = 0; i < snake.segments.length; i++) {
         const seg = snake.segments[i];
-        nds.NF_CreateSprite(SCREEN_TOP, (i as u8) + 1, 0, 2, seg.x, seg.y);
+        nds.NF_CreateSprite(SCREEN_TOP, (i as u8) + 1, 0, SEGMENT_ID, seg.x, seg.y);
       }
 
       direction = getDirectionFromKeys(direction);
@@ -123,8 +126,8 @@ export function start(): void {
         for (let i: i32 = 0; i < snake.segments.length; i++) {
           nds.NF_DeleteSprite(SCREEN_TOP, (i + 1) as u8);
         }
-        snake = new Snake(0);
-        apple = new Apple(1);
+        snake = new Snake();
+        apple = new Apple();
         score = 0;
         frame = 0;
         done = false;
