@@ -50,8 +50,8 @@ export function start(): void {
   nds.NF_InitTiledBgBuffers();
   nds.NF_InitTiledBgSys(SCREEN_TOP);
 
-  nds.NF_LoadTiledBg("backgrounds/bg", "bg", 256, 256);
-  nds.NF_CreateTiledBg(SCREEN_TOP, 3, "bg");
+  nds.NF_LoadTiledBg("backgrounds/wasm", "wasm", 256, 256);
+  nds.NF_CreateTiledBg(SCREEN_TOP, 3, "wasm");
 
   nds.NF_InitSpriteBuffers();
   nds.NF_InitSpriteSys(SCREEN_TOP);
